@@ -52,6 +52,18 @@ public class AntController {
         return 0;
     }
 
+    int getNextVForGreedyAlgoritm(int[] functionMeanings) {
+        int max = functionMeanings[0];
+        int index =0;
+        for (int i = 1; i < functionMeanings.length; i++) {
+            if (functionMeanings[i] > max) {
+                max = functionMeanings[i];
+                index =i;
+            }
+        }
+        return index;
+    }
+
     double getPathCost(Double[][] matrix, List<Integer> path) {
         double sum =0;
 
@@ -131,7 +143,7 @@ public class AntController {
                 }
 
                 if (closeArray.length > 0) {
-                    int nextV = closeArray[getNextV(p(currentNode, closeArray))];
+                    int nextV = closeArray[getNextVForGreedyAlgoritm(closeArray)];
                     List<Integer> listToCheck = new ArrayList<>(path);
                     listToCheck.add(nextV);
 
@@ -161,8 +173,8 @@ public class AntController {
             System.out.println("End of the iteration!!!!");
 
             finalPathes.add(path);
-            changeFeromon();
-            changeFeromonForPathV(path);
+           // changeFeromon();
+            //changeFeromonForPathV(path);
         }
 
         for (List<Integer> finalPath : finalPathes) {
